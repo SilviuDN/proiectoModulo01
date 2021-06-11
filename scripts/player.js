@@ -1,19 +1,45 @@
-class Player{
-    constructor(ctx, carPosX = 0, carPosY,carWidth, carHeight, carImg, shipAmo = 0){
+class Player {
+
+
+  constructor(ctx, gameW, gameH, playerPosX = 0, playerPosY, playerWidth, playerHeight, playerImg){
       this.ctx = ctx,
-      this.shipPos = { x: carPosX, y: carPosY},
-      this.shipSize = { w: carWidth, h: carHeight},
-      this.shipImage = carImg,
-      this.shipAmo = shipAmo
-      this.imageInstance = undefined
+      this.gameW = gameW,
+      this.gameH = gameH,
+      this.shipPos = { x: playerPosX, y: playerPosY},
+      this.shipSize = { w: playerWidth, h: playerHeight},
+      this.shipImage = playerImg,
+      
   
       this.init()   
   
     }
+  
+    init(){
+        this.imageInstance = new Image()
+        // this.imageInstance.src = `./img/${this.playerImg}` 
+        this.imageInstance.src = "./img/player.png"
+        
 
-}
+    }
+  
+    draw(){
+      this.ctx.drawImage(this.imageInstance, this.shipPos.x, this.shipPos.y, this.shipSize.w, this.shipSize.h)
+    }
+  
+    moveUp() {
+      if(this.shipPos.y > 0){
+        this.shipPos.y -= 25
+      }
+    }
 
-// eventListeners:
-// las flechas
-// SPACE (disparar)
-// x (disparar bombas)
+    moveDown() {
+      if(this.shipPos.y < gameH){
+        this.shipPos.y += 25
+      }
+        
+    }
+  
+  
+  
+  
+  }
