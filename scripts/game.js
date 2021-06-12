@@ -44,8 +44,9 @@ const Game = {
         this.reset()
     
         this.interval = setInterval(() => {        
-          this.clear()          
+          this.clear()    
           this.createAsteroids()
+          this.explodeAsteroid()
           this.drawAll()
           this.framesCounter ++
       }, this.FPS)
@@ -57,43 +58,38 @@ const Game = {
         const posStartY = Math.random() * (this.height - 50)
         const asteroid = new Asteroid(this.ctx, this.width, posStartY, 5, 'asteroid')
         this.asteroids.push(asteroid)        
+        
       }
+
     },
 
 
     clear() {
-        // this.ctx.clearRect(0, 0, this.width, this.height, this.keys)
         this.ctx.clearRect(0, 0, this.width, this.height)
-        this.explodeAsteroid()
+        // this.explodeAsteroid()
         this.asteroids = this.asteroids.filter( asteroid => asteroid.asteroidPos.x > 0)
       },
     
 
-      // explodeAsteroid(){
-      //   this.asteroids = this.asteroids.filter( asteroid => {
-      //     this.player.shots.some( shot => {
-      //       console.log(shot.posX > asteroid.asteroidPos.x)
-      //       if( shot.posX > asteroid.asteroidPos.x ){
-      //         return true
-      //       }
-      //     })
-      //   })
-      // },
       explodeAsteroid(){
         this.asteroids = this.asteroids.filter( asteroid => {
-          if( asteroid.x < 300){
-            return false
+          if(this.player.shots.length == 0){
+            return true
           }
-          return true
+          return !this.player.shots.some( shot => {
+            return (
+              shot.posX > asteroid.asteroidPos.x && 
+              ( 
+                (shot.posY > asteroid.asteroidPos.y && shot.posY < (asteroid.asteroidPos.y + 50))
+                
+              )
+              )
+         
+            })      
+        
         })
-      },
-      // explodeAsteroid(){
-      //   this.asteroids = this.asteroids.filter( asteroid => {
-      //     !this.player.shots.some( shot => {
-      //       return shot.posX > asteroid.asteroidPos.x
-      //     })
-      //   })
-      // },
+    },
+
 
   drawAll() {
     this.background.draw()
