@@ -3,11 +3,11 @@ const Game = {
     ctx: undefined,
     width: undefined,
     height: undefined,
-    // FPS: 60,
+    FPS: 10,
     // framesCounter: 0,
   
-    // background: undefined,
-    // player: undefined,
+    background: undefined,
+    player: undefined,
     obstacles: [],
   
     keys: {
@@ -21,10 +21,15 @@ const Game = {
     },
   
     init() {
-      this.canvas = document.getElementById("mySpaceCanvas")
-      this.ctx = this.canvas.getContext("2d")
+      this.setContext()
       this.setDimensions()
       this.start()
+    },
+
+    setContext(){
+      this.canvas = document.getElementById("mySpaceCanvas")
+      this.ctx = this.canvas.getContext("2d")
+
     },
   
     setDimensions() {
@@ -38,29 +43,27 @@ const Game = {
 
         this.reset()
     
-        this.interval = setInterval(() => {
-        
+        this.interval = setInterval(() => {        
           this.clear()
           this.drawAll()
-
-      })
+      }, this.FPS)
 
     },
 
     clear() {
+        // this.ctx.clearRect(0, 0, this.width, this.height, this.keys)
         this.ctx.clearRect(0, 0, this.width, this.height)
       },
     
   drawAll() {
     this.background.draw()
-    // this.player.draw()
-    // this.player.draw(this.framesCounter)
+    this.player.draw()
     // this.obstacles.forEach(obs => obs.draw())
   },
       
     reset() {
         this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png")
-        this.player = new Player(this.ctx, this.width, this.height, playerPosX = 0, 300, 150, 150, "player.png")
+        this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", this.keys)
 
         this.obstacles = []
     }
