@@ -1,4 +1,10 @@
 const Game = {
+    title: 'Space Adventure',
+    projectManager: 'Paula, Theo, German',
+    authors: 'Kike, Silviu',
+    license: undefined,
+    version: '1.0.0',
+    desciption: 'Shooter App with gravity and everything',
     canvas: undefined,
     ctx: undefined,
     width: undefined,
@@ -11,6 +17,7 @@ const Game = {
     background: undefined,
     player: undefined,
     asteroids: [],
+    enemies: [],
   
     keys: {
       UP: 38,
@@ -35,8 +42,10 @@ const Game = {
     },
   
     setDimensions() {
-      this.width = window.innerWidth
-      this.height = window.innerHeight
+      // this.width = window.innerWidth
+      // this.height = window.innerHeight
+      this.width = 4000
+      this.height = 2000
       this.canvas.width = this.width
       this.canvas.height = this.height
     },
@@ -49,7 +58,10 @@ const Game = {
           this.clear()    
           this.createAsteroids()
           this.explodeAsteroid()
+          this.createEnemies()
+          this.explodeEnemy()
           this.isShipImpact()
+          this.isShipImpactConEnemyShip()
           if(this.lives){
             this.drawAll()
           }          
@@ -61,7 +73,6 @@ const Game = {
 
     createAsteroids(){  
       if( this.framesCounter % 200 == 0){
-        // const posStartY = Math.random() * (this.height - 50)
         // condition that asteroids don't enter in out of range area
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
         const asteroid = new Asteroid(this.ctx, this.width, posStartY, 5, 'asteroid')
@@ -70,36 +81,28 @@ const Game = {
 
     },
 
+    createEnemies(){
+      // const randomDistance = 50 + Math.floor(Math.random() * 300)
+      if( this.framesCounter % 400 == 50){
+        const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)              
+                                                         
+        const enemy = new Enemy(this.ctx, this.width, this.height, posStartY, 'ship.jpg')
+        this.enemies.push(enemy) 
+        console.log(enemy.pos.x)
+        console.log(this.enemies.length)
+      }
+    },
+
 
     clear() {
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.asteroids = this.asteroids.filter( asteroid => asteroid.pos.x > -5)
+        // this.enemies = this.enemies.filter( enemy => enemy.pos.x > -5)
+        
         this.player.shots = this.player.shots.filter(shot =>  shot.pos.x < this.width ) 
 
       },
     
-
-    //   explodeAsteroid(){
-    //     this.asteroids = this.asteroids.filter( asteroid => {
-    //       if(this.player.shots.length == 0){
-    //         return true
-    //       }
-    //       return !this.player.shots.some( shot => {
-    //         return (
-    //           shot.pos.x > asteroid.pos.x && 
-    //           ( 
-    //             // (shot.posY > asteroid.pos.y && shot.posY < (asteroid.pos.y + 50))
-    //             (shot.pos.y > asteroid.pos.y && shot.pos.y < (asteroid.pos.y + asteroid.size.h) ) ||
-    //             (shot.pos.y + shot.size.h > asteroid.pos.y && (shot.pos.y + shot.size.h) < (asteroid.pos.y + asteroid.size.h) )
-                
-    //           )
-    //           )
-         
-    //         })      
-        
-    //     })
-    // },
-
 
   explodeAsteroid(){
     this.asteroids = this.asteroids.filter( asteroid => {
@@ -110,6 +113,23 @@ const Game = {
         const isImpact = this.isImpact(shot, asteroid)  
         if( isImpact ){
           this.score += 1
+          this.removeElementFromArray(shot, this.player.shots)
+        }                   
+        return isImpact              
+        })              
+    })
+  },
+
+  
+  explodeEnemy(){
+    this.enemies = this.enemies.filter( enemy => {
+      if(this.player.shots.length == 0){
+        return true
+      }
+      return !this.player.shots.some( shot => {
+        const isImpact = this.isImpact(shot, enemy)  
+        if( isImpact ){
+          this.score += 2
           this.removeElementFromArray(shot, this.player.shots)
         }                   
         return isImpact              
@@ -131,6 +151,21 @@ const Game = {
       if(isImpact){
         this.removeElementFromArray(asteroid, this.asteroids)
         this.lives--
+        if(this.lives == 0){
+          this.isGameOver()
+        }
+      }      
+      return isImpact
+    })
+  },
+
+  isShipImpactConEnemyShip(){
+    // const isShipImpact = this.asteroids.some( asteroid => this.isImpact(this.player, asteroid))
+    const isShipImpact = this.enemies.some( enemy => {
+      const isImpact = this.isImpact(this.player, enemy)
+      if(isImpact){
+        this.removeElementFromArray(enemy, this.enemies)
+        this.lives = 0 //cambiar vidas mas adelante
         if(this.lives == 0){
           this.isGameOver()
         }
@@ -163,6 +198,9 @@ const Game = {
     this.asteroids.forEach(asteroid => {
       asteroid.draw()
     });
+    this.enemies.forEach(enemy => {
+      enemy.draw()
+    }) 
   },
       
   reset() {
@@ -170,6 +208,7 @@ const Game = {
       this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", this.keys)
 
       this.obstacles = []
+      this.enemies =[]
   },
 
   isImpact(object1, object2){
