@@ -1,8 +1,9 @@
 class Asteroid {    
     constructor(ctx, posX, posY, speedX, asteroidImage) {
         this.ctx = ctx
-        this.asteroidPos = { x: posX, y: posY }
-        this.asteroidSpeed = { x: speedX, y: 0}
+        this.pos = { x: posX, y: posY }
+        this.size = {w: 50, h: 50}
+        this.speed = { x: speedX, y: 0}
         this.asteroidImage = asteroidImage
 
         this.init()
@@ -18,12 +19,12 @@ class Asteroid {
     }
 
     draw() {
-        this.ctx.drawImage(this.imageInstance, this.asteroidPos.x - 100, this.asteroidPos.y, 50, 50)     
+        this.ctx.drawImage(this.imageInstance, this.pos.x, this.pos.y, this.size.w, this.size.h)     
         this.move()
     }
 
     move() {
-        this.asteroidPos.x -= this.asteroidSpeed.x
+        this.pos.x -= this.speed.x
     }
 
 }
