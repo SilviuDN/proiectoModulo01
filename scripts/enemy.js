@@ -42,7 +42,7 @@ class Enemy {
         const enemyCenter = (this.pos.y + this.size.h/2)
         // const playerCenter = (this.player.pos.y + this.player.pos.h/2)
         // const centerToCenterGap = enemyCenter - playerCenter
-        if(  Math.random() < 0.03){
+        if(  Math.random() < 0.03  ){
         // if( this.frameCounter % 9000 && Math.random() < 0.03){
           if( enemyCenter < this.player.pos.y){
             this.speed.y = 10

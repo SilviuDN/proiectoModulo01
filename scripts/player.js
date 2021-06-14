@@ -12,6 +12,7 @@ class Player {
       this.speed =speed,
       this.repeatedShots = 15,
       this.shots = [],
+      this.pressedKeys = [],
         
       this.init()     
       this.setListeners()
@@ -45,9 +46,25 @@ class Player {
     }
 
   
+    // moveUp() {      
+    //   const up   = this.pressedKeys.includes("UP")
+    //   if(up){
+    //     if(this.pos.y > 0){
+    //       this.pos.y -= 25
+    //     }
+    //   }
+
+    // }
+
     moveUp() {
       if(this.pos.y > 0){
         this.pos.y -= 25
+      }
+      const up = this.pressedKeys.includes("UP")
+      if(up){
+        if(this.pos.y > 0){
+          this.pos.y -= 25
+        }
       }
     }
 
@@ -71,25 +88,76 @@ class Player {
 
     shot(){
       const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
+
       if(this.shots.length < this.repeatedShots){
         // this.shots.shift()
         this.shots.push( shot )
       }
       // this.shots.push( shot )
+
+      const up   = this.pressedKeys.includes("UP")
+      if(up){
+        if(this.pos.y > 0){
+          this.pos.y -= 25
+        }
+      }
+
+      const down   = this.pressedKeys.includes("DOWN")
+      if(down){
+        
+        if(this.pos.y < this.gameH - this.size.h){
+          this.pos.y += 25
+        }
+      }
+
+
+
+
     }
+
+    
+  // removeElementFromArray(el, arr){
+  //   const index = arr.indexOf(el)
+  //   if( index > -1){
+  //     arr.splice(index, 1)
+  //   }
+  // }
+
+  removeElementFromArray(el, arr){
+    const index = arr.indexOf(el)
+    if( index > -1){
+      arr.splice(index, 1)
+    }
+  }
 
     
   setListeners() {
 
     document.addEventListener("keydown", e => {
+      
+      if(e.keyCode == this.keys.UP){
+        if( !this.pressedKeys.includes("UP") ){
+          this.pressedKeys.push('UP')
+
+        }
+        this.moveUp()
+      }
+
+      if(e.keyCode == this.keys.DOWN){
+        if( !this.pressedKeys.includes("DOWN") ){
+          this.pressedKeys.push('DOWN')
+
+        }
+        this.moveDown();
+      }
 
       switch (e.keyCode) {
-        case this.keys.UP:
-          this.moveUp()
-          break;
-        case this.keys.DOWN:
-          this.moveDown();
-          break;
+        // case this.keys.UP:
+        //   this.moveUp()
+        //   break;
+        // case this.keys.DOWN:
+        //   this.moveDown();
+        //   break;
         case this.keys.RIGHT:
           this.moveRight();
           break;
@@ -101,6 +169,34 @@ class Player {
           break;
       }
     });
+
+
+    document.addEventListener("keyup", e => {
+
+      if(e.keyCode == this.keys.UP){
+        // if( )
+        if( this.pressedKeys.includes("UP") ){
+          this.removeElementFromArray("UP", this.pressedKeys)
+      }
+    }
+    
+      if(e.keyCode == this.keys.DOWN){
+        // if( )
+        if( this.pressedKeys.includes("DOWN") ){
+          this.removeElementFromArray("DOWN", this.pressedKeys)
+      }
+    }
+
+
+
+    });
+
+
+
+
+
+
+
   }
   
   

@@ -17,7 +17,7 @@ class Shots {
   
     draw() {
       this.ctx.beginPath();
-      this.ctx.fillStyle = "black";
+      this.ctx.fillStyle = "white";
       // this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
       this.ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
 

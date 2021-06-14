@@ -230,8 +230,8 @@ const Game = {
     this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
     this.ctx.fillStyle = "orange"
     this.ctx.font = "150px Arial"
-    this.ctx.fillText(`${message}! You won ${this.score} points!\nGame Over!`, this.width/4, this.height/2, this.width/2)
-    
+    this.ctx.fillText(`${message}! You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
+    // this.ctx.fillText(`Game Over!`, this.width/4, this.height/2 + 100, this.width/2)
   },
 
   myFillRect(x, y, w, h, color){
@@ -256,7 +256,7 @@ const Game = {
   },
       
   reset() {
-      this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png")
+      this.background = new Background(this.ctx, this.width, this.height, "./img/background.png")
       this.player = new Player(this.ctx, this.width, this.height, this.gravity, 50, 300, 150, 150, "ship.jpg", this.keys)
 
       this.obstacles = []
