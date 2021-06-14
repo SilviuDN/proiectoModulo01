@@ -73,7 +73,8 @@ const Game = {
           this.isShipImpactConEnemyShip()
           if(this.lives > 0){
             this.drawAll()
-          }          
+          }        
+          this.isWin()  
           this.framesCounter ++
           this.framesCounter %= 10000
       }, this.FPS)
@@ -192,14 +193,19 @@ const Game = {
         this.removeElementFromArray(asteroid, this.asteroids)
         this.lives--
         if(this.lives <= 0){
-          this.isGameOver()
+          this.isGameOver('Game over')
         }
       }      
       return isImpact
     })
   },
-
-  isShipImpactConEnemyShip(){
+  isWin(){
+    if(this.background.passedScreens>=2){
+        this.isGameOver('You Win')
+    }
+},
+  
+isShipImpactConEnemyShip(){
     // const isShipImpact = this.asteroids.some( asteroid => this.isImpact(this.player, asteroid))
     const isShipImpact = this.enemies.some( enemy => {
       const isImpact = this.isImpact(this.player, enemy)
@@ -207,7 +213,7 @@ const Game = {
         this.removeElementFromArray(enemy, this.enemies)
         this.lives -= 2 //cambiar vidas mas adelante
         if(this.lives <= 0){
-          this.isGameOver()
+          this.isGameOver('Game Over')
         }
       }      
       return isImpact
@@ -215,15 +221,15 @@ const Game = {
   },
    
 
-  isGameOver(){
+  isGameOver(message){
     console.log('You loose! :)')
     this.background.draw()
     clearInterval(this.interval)
     this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
     this.ctx.fillStyle = "orange"
     this.ctx.font = "150px Arial"
-    this.ctx.fillText(`Congrats! You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
-
+    this.ctx.fillText(`${message} You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
+    
   },
 
   myFillRect(x, y, w, h, color){
