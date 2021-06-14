@@ -10,6 +10,7 @@ class Player {
       this.playerImage = playerImg,
       this.keys = keys,
       this.speed =speed,
+      this.repeatedShots = 15,
       this.shots = [],
         
       this.init()     
@@ -70,7 +71,11 @@ class Player {
 
     shot(){
       const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
-      this.shots.push( shot )
+      if(this.shots.length < this.repeatedShots){
+        // this.shots.shift()
+        this.shots.push( shot )
+      }
+      // this.shots.push( shot )
     }
 
     

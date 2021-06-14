@@ -14,11 +14,16 @@ const Game = {
     score : 0,
     lives : 3,
     gravity : 0,
+
   
     background: undefined,
     player: undefined,
     asteroids: [],
     enemies: [],
+    livesBarrell: undefined,
+
+    //difficulty
+    maxLivesNumber: 5,
   
     keys: {
       UP: 38,
@@ -62,6 +67,8 @@ const Game = {
           this.explodeAsteroid()
           this.createEnemies()
           this.explodeEnemy()
+          this.createLivesBarrell()
+          this.useLivesBarrell()
           this.isShipImpact()
           this.isShipImpactConEnemyShip()
           if(this.lives > 0){
@@ -92,6 +99,14 @@ const Game = {
 
     },
 
+    createLivesBarrell(){  
+      if( this.framesCounter % 4000 == 0){
+        // condition that asteroids don't enter in out of range area
+        const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
+        this.livesBarrell = new LivesBarrell(this.ctx, this.width, posStartY, 10, 'asteroid')    
+      }
+    },
+
     createEnemies(){
       // const randomDistance = 50 + Math.floor(Math.random() * 300)
       if( this.framesCounter % 400 == 50){
@@ -113,6 +128,20 @@ const Game = {
         this.player.shots = this.player.shots.filter(shot =>  shot.pos.x < this.width ) 
 
       },
+    
+
+  useLivesBarrell(){
+    if(this.livesBarrell){
+        const isImpact = this.isImpact(this.player, this.livesBarrell)  
+        if( isImpact ){
+          this.lives += 3
+          this.lives = this.lives > this.maxLivesNumber ? this.maxLivesNumber : this.lives 
+          console.log(this.lives)
+          this.livesBarrell = ''
+        } 
+    }
+                        
+  },         
     
 
   explodeAsteroid(){
@@ -162,7 +191,7 @@ const Game = {
       if(isImpact){
         this.removeElementFromArray(asteroid, this.asteroids)
         this.lives--
-        if(this.lives == 0){
+        if(this.lives <= 0){
           this.isGameOver()
         }
       }      
@@ -212,6 +241,10 @@ const Game = {
     this.enemies.forEach(enemy => {
       enemy.draw()
     }) 
+    if(this.livesBarrell){
+      this.livesBarrell.draw()
+    }
+    
   },
       
   reset() {
