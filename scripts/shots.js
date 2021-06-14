@@ -27,7 +27,6 @@ class Shots {
     }
   
     move() {
-      // this.posX += this.velX;
       this.pos.x += this.velX;
 
     }

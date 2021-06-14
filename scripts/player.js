@@ -1,9 +1,10 @@
 class Player {
   
-  constructor(ctx, gameW, gameH, playerPosX = 0, playerPosY, playerWidth, playerHeight, playerImg, keys, speed = 25){
+  constructor(ctx, gameW, gameH, gravity, playerPosX = 0, playerPosY, playerWidth, playerHeight, playerImg, keys, speed = 25){
       this.ctx = ctx,
       this.gameW = gameW,
       this.gameH = gameH,
+      this.gravity = gravity,
       this.pos = { x: playerPosX, y: playerPosY},
       this.size = { w: playerWidth, h: playerHeight},
       this.playerImage = playerImg,
@@ -30,6 +31,9 @@ class Player {
     inertialMove(){
       if(this.pos.x > 0){
         this.pos.x -= 1
+      }
+      if( this.gravity == 1){
+        this.pos.y += 1
       }
     }
 

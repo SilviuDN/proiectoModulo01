@@ -13,6 +13,7 @@ const Game = {
     framesCounter: 0,
     score : 0,
     lives : 3,
+    gravity : 0,
   
     background: undefined,
     player: undefined,
@@ -55,20 +56,30 @@ const Game = {
         this.reset()
     
         this.interval = setInterval(() => {        
-          this.clear()    
+          this.clear()  
+          this.hasGravity()  
           this.createAsteroids()
           this.explodeAsteroid()
           this.createEnemies()
           this.explodeEnemy()
           this.isShipImpact()
           this.isShipImpactConEnemyShip()
-          if(this.lives){
+          if(this.lives > 0){
             this.drawAll()
           }          
           this.framesCounter ++
-          this.framesCounter %= 5000
+          this.framesCounter %= 10000
       }, this.FPS)
 
+    },
+
+    hasGravity(){
+      if( this.background.passedScreens == 0){
+        this.gravity = 1
+      }else{
+        this.gravity = 0
+      }
+      this.player.gravity = this.gravity
     },
 
     createAsteroids(){  
@@ -86,10 +97,10 @@ const Game = {
       if( this.framesCounter % 400 == 50){
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)              
                                                          
-        const enemy = new Enemy(this.ctx, this.width, this.height, posStartY, 'ship.jpg')
+        const enemy = new Enemy(this.ctx, this.framesCounter, this.player, this.width, this.height, posStartY, 'ship.jpg')
         this.enemies.push(enemy) 
-        console.log(enemy.pos.x)
-        console.log(this.enemies.length)
+        // console.log(enemy.pos.x)
+        // console.log(this.enemies.length)
       }
     },
 
@@ -97,7 +108,7 @@ const Game = {
     clear() {
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.asteroids = this.asteroids.filter( asteroid => asteroid.pos.x > -5)
-        // this.enemies = this.enemies.filter( enemy => enemy.pos.x > -5)
+        this.enemies = this.enemies.filter( enemy => enemy.pos.x > -5)
         
         this.player.shots = this.player.shots.filter(shot =>  shot.pos.x < this.width ) 
 
@@ -165,8 +176,8 @@ const Game = {
       const isImpact = this.isImpact(this.player, enemy)
       if(isImpact){
         this.removeElementFromArray(enemy, this.enemies)
-        this.lives = 0 //cambiar vidas mas adelante
-        if(this.lives == 0){
+        this.lives -= 2 //cambiar vidas mas adelante
+        if(this.lives <= 0){
           this.isGameOver()
         }
       }      
@@ -205,20 +216,33 @@ const Game = {
       
   reset() {
       this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png")
-      this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", this.keys)
+      this.player = new Player(this.ctx, this.width, this.height, this.gravity, 50, 300, 150, 150, "ship.jpg", this.keys)
 
       this.obstacles = []
       this.enemies =[]
   },
 
+
+
+  // isImpact(o1, o2){
+  //   if( ( (o1.pos.x + o1.size.w) < o2.pos.x ) || ( (o2.pos.x + o2.size.w) < o1.pos.x ) || ( (o1.pos.y + o1.size.h) < o2.pos.y ) || ( (o2.pos.y + o2.size.h) <  o1.pos.y ) ){
+  //     return false
+  //   }else{
+  //     return true
+  //   }
+  // }
+
+     
   isImpact(object1, object2){
     return (
+
       (object1.pos.x ) >= object2.pos.x && 
       ( 
         // (object1.posY > object2.pos.y && object1.posY < (object2.pos.y + 50))
         (object1.pos.y > object2.pos.y && object1.pos.y < (object2.pos.y + object2.size.h) ) ||
         (object1.pos.y + object1.size.h > object2.pos.y && (object1.pos.y + object1.size.h) < (object2.pos.y + object2.size.h) ) 
-        || ( (object1.pos.y < object2.pos.y && (object1.pos.y + object1.size.h) > object2.pos.y) )        
+        || ( (object1.pos.y < object2.pos.y && (object1.pos.y + object1.size.h) > object2.pos.y) ) 
+        || ( ( object1.pos.y > object2.pos.y ) && ( object1.pos.y + object1.size.h < object2.pos.y + object2.size.h ) )       
       )
       )
   }

@@ -12,6 +12,7 @@ class Background {
       this.posY = 0;
   
       this.velX = 1;
+      this.passedScreens = 0;
     }
   
     draw() {
@@ -23,6 +24,7 @@ class Background {
     move() {
       if (this.posX <= -this.width) {
         this.posX = 0;
+        this.screens ++
       }
       this.posX -= this.velX;
     }
