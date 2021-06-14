@@ -1,16 +1,11 @@
-class Enemy {
+class Enemy extends SuperClass{
   
-    constructor(ctx, frameCounter, player, gameW, gameH,  enemyPosY, enemyImg, speed = -5){
-        this.ctx = ctx,
+    // constructor(ctx, frameCounter, player, gameW, gameH,  enemyPosY, enemyImg, speed = -5){
+    constructor(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY, frameCounter, player){
+      super(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY)   
+        
         this.frameCounter = frameCounter,
         this.player = player,
-        this.gameW = gameW,
-        this.gameH = gameH,
-        // this.pos = { x: gameW/2, y: enemyPosY},
-        this.pos = { x: gameW, y: enemyPosY},
-        this.size = { w: 200, h: 200},
-        this.enemyImage = enemyImg,
-        this.speed ={x: speed, y:0}
         this.shots = [],
           
         this.init()     

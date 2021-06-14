@@ -94,7 +94,10 @@ const Game = {
       if( this.framesCounter % 200 == 0){
         // condition that asteroids don't enter in out of range area
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
-        const asteroid = new Asteroid(this.ctx, this.width, posStartY, 5, 'asteroid')
+
+        const asteroid = new Asteroid(this.ctx, this.width, this.height, this.width, posStartY, 50, 50, 'asteroid', 5, 0)
+
+
         this.asteroids.push(asteroid)                
       }
 
@@ -104,17 +107,23 @@ const Game = {
       if( this.framesCounter % 4000 == 0){
         // condition that asteroids don't enter in out of range area
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
-        this.livesBarrell = new LivesBarrell(this.ctx, this.width, posStartY, 10, 'asteroid')    
+
+        this.livesBarrell = new LivesBarrell(this.ctx, this.width, this.height, this.width, posStartY, 100, 100, 'asteroid', 10, 0)
+
+        
       }
     },
 
     createEnemies(){
       // const randomDistance = 50 + Math.floor(Math.random() * 300)
       if( this.framesCounter % 400 == 50){
-        const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)              
-                                                         
-        const enemy = new Enemy(this.ctx, this.framesCounter, this.player, this.width, this.height, posStartY, 'ship.jpg')
-        this.enemies.push(enemy) 
+        const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)  
+        
+        
+          
+    // constructor(ctx, frameCounter, player, gameW, gameH,  enemyPosY, enemyImg, speed = -5){
+      const enemy = new Enemy(this.ctx, this.width, this.height, this.width, posStartY, 200, 200, 'ship.jpg', -5, 0, this.frameCounter, this.player)
+      this.enemies.push(enemy) 
         // console.log(enemy.pos.x)
         // console.log(this.enemies.length)
       }
@@ -260,7 +269,7 @@ const Game = {
       
   reset() {
       this.background = new Background(this.ctx, this.width, this.height, "./img/background.png")
-      this.player = new Player(this.ctx, this.width, this.height, this.gravity, 50, 300, 150, 150, "ship.jpg", this.keys)
+      this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", 25, 0, this.gravity, this.keys)
 
       this.obstacles = []
       this.enemies =[]

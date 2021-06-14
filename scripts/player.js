@@ -1,15 +1,11 @@
-class Player {
+class Player extends SuperClass{
   
-  constructor(ctx, gameW, gameH, gravity, playerPosX = 0, playerPosY, playerWidth, playerHeight, playerImg, keys, speed = 25){
-      this.ctx = ctx,
-      this.gameW = gameW,
-      this.gameH = gameH,
+  // constructor(ctx, gameW, gameH, gravity, playerPosX = 0, playerPosY, playerWidth, playerHeight, playerImg, keys, speed = 25){
+  constructor(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY, gravity, keys){
+    super(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY)
+      
       this.gravity = gravity,
-      this.pos = { x: playerPosX, y: playerPosY},
-      this.size = { w: playerWidth, h: playerHeight},
-      this.playerImage = playerImg,
       this.keys = keys,
-      this.speed =speed,
       this.repeatedShots = 15,
       this.shots = [],
       this.pressedKeys = [],
@@ -20,7 +16,7 @@ class Player {
   
     init(){
         this.imageInstance = new Image()
-        this.imageInstance.src = `./img/${this.playerImage}` 
+        this.imageInstance.src = `./img/${this.image}` 
     }
   
     draw(){
