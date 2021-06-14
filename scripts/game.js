@@ -69,12 +69,12 @@ const Game = {
           this.explodeEnemy()
           this.createLivesBarrell()
           this.useLivesBarrell()
-          this.isWin()
           this.isShipImpact()
           this.isShipImpactConEnemyShip()
           if(this.lives > 0){
             this.drawAll()
-          }          
+          }            
+          this.isWin()  
           this.framesCounter ++
           this.framesCounter %= 10000
       }, this.FPS)
@@ -203,6 +203,7 @@ const Game = {
   isWin(){
     if(this.background.passedScreens >= 2){
       console.log("DOES NOT WORK!!!!!")
+      // this.player.pressedKeys = []
       this.isGameOver('You win')
     }
   },
@@ -224,14 +225,16 @@ const Game = {
    
 
   isGameOver(message){
-    console.log('You loose! :)')
-    this.background.draw()
+    console.log('Game Over! :)')
+    // this.background.draw()
     clearInterval(this.interval)
+    this.background.draw()
     this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
     this.ctx.fillStyle = "orange"
     this.ctx.font = "150px Arial"
     this.ctx.fillText(`${message}! You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
-    // this.ctx.fillText(`Game Over!`, this.width/4, this.height/2 + 100, this.width/2)
+    
+    console.log('Game Over! :)')
   },
 
   myFillRect(x, y, w, h, color){
@@ -296,19 +299,5 @@ const Game = {
     }
   }
 
-  // MIGHT COME IN HANDY   
-  // isImpact(object1, object2){
-  //   return (
-
-  //     (object1.pos.x ) >= object2.pos.x && 
-  //     ( 
-  //       // (object1.posY > object2.pos.y && object1.posY < (object2.pos.y + 50))
-  //       (object1.pos.y > object2.pos.y && object1.pos.y < (object2.pos.y + object2.size.h) ) ||
-  //       (object1.pos.y + object1.size.h > object2.pos.y && (object1.pos.y + object1.size.h) < (object2.pos.y + object2.size.h) ) 
-  //       || ( (object1.pos.y < object2.pos.y && (object1.pos.y + object1.size.h) > object2.pos.y) ) 
-  //       || ( ( object1.pos.y > object2.pos.y ) && ( object1.pos.y + object1.size.h < object2.pos.y + object2.size.h ) )       
-  //     )
-  //     )
-  // }
 
 }

@@ -27,7 +27,6 @@ class Player {
       this.inertialMove()
       this.ctx.drawImage(this.imageInstance, this.pos.x, this.pos.y, this.size.w, this.size.h)
       this.shots.forEach(shot => shot.draw())
-      this.clearShots()
     }
 
     inertialMove(){
@@ -39,61 +38,20 @@ class Player {
       }
     }
 
-    clearShots(){
-      // this.shots = this.shots.filter(shot => {
-      //   return ( shot.pos.x < this.gameW )
-      // }) 
-    }
 
-  
-    // moveUp() {      
-    //   const up   = this.pressedKeys.includes("UP")
-    //   if(up){
-    //     if(this.pos.y > 0){
-    //       this.pos.y -= 25
-    //     }
-    //   }
 
-    // }
 
-    moveUp() {
-      if(this.pos.y > 0){
-        this.pos.y -= 25
-      }
-      const up = this.pressedKeys.includes("UP")
-      if(up){
-        if(this.pos.y > 0){
-          this.pos.y -= 25
+    moveAndShoot(){
+
+      const shot = this.pressedKeys.includes("SPACE")
+      if(shot){
+        const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
+
+        if(this.shots.length < this.repeatedShots){
+          // this.shots.shift()
+          this.shots.push( shot )
         }
       }
-    }
-
-    moveDown() {
-      if(this.pos.y < this.gameH - this.size.h){
-        this.pos.y += 25
-      }
-    }
-
-    moveRight() {
-      if(this.pos.x < this.gameW - this.size.w){
-        this.pos.x += 25
-      }
-    }
-
-    moveLeft() {
-      if(this.pos.x > 0){
-        this.pos.x -= 25
-      }
-    }
-
-    shot(){
-      const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
-
-      if(this.shots.length < this.repeatedShots){
-        // this.shots.shift()
-        this.shots.push( shot )
-      }
-      // this.shots.push( shot )
 
       const up   = this.pressedKeys.includes("UP")
       if(up){
@@ -110,18 +68,30 @@ class Player {
         }
       }
 
+      const right = this.pressedKeys.includes("RIGHT")
+      if(right){
+        
+        if(this.pos.x < this.gameW - this.size.w){
+          this.pos.x += 25
+        }
+      }
+
+      const left   = this.pressedKeys.includes("LEFT")
+      if(left){
+        
+        if(this.pos.x > 0){
+          this.pos.x -= 25
+        }
+      }
+
+
 
 
 
     }
 
+
     
-  // removeElementFromArray(el, arr){
-  //   const index = arr.indexOf(el)
-  //   if( index > -1){
-  //     arr.splice(index, 1)
-  //   }
-  // }
 
   removeElementFromArray(el, arr){
     const index = arr.indexOf(el)
@@ -134,13 +104,13 @@ class Player {
   setListeners() {
 
     document.addEventListener("keydown", e => {
-      
+
       if(e.keyCode == this.keys.UP){
         if( !this.pressedKeys.includes("UP") ){
           this.pressedKeys.push('UP')
 
         }
-        this.moveUp()
+        this.moveAndShoot()
       }
 
       if(e.keyCode == this.keys.DOWN){
@@ -148,42 +118,68 @@ class Player {
           this.pressedKeys.push('DOWN')
 
         }
-        this.moveDown();
+        this.moveAndShoot();
       }
 
-      switch (e.keyCode) {
-        // case this.keys.UP:
-        //   this.moveUp()
-        //   break;
-        // case this.keys.DOWN:
-        //   this.moveDown();
-        //   break;
-        case this.keys.RIGHT:
-          this.moveRight();
-          break;
-        case this.keys.LEFT:
-          this.moveLeft();
-          break;
-        case this.keys.SPACE:
-          this.shot();
-          break;
+      if(e.keyCode == this.keys.RIGHT){
+        if( !this.pressedKeys.includes("RIGHT") ){
+          this.pressedKeys.push('RIGHT')
+        }
+        this.moveAndShoot();
       }
+
+      if(e.keyCode == this.keys.LEFT){
+        if( !this.pressedKeys.includes("LEFT") ){
+          this.pressedKeys.push('LEFT')
+        }
+        this.moveAndShoot();
+      }
+
+      if(e.keyCode == this.keys.SPACE){
+        if( !this.pressedKeys.includes("SPACE") ){
+          this.pressedKeys.push('SPACE')
+        }
+        this.moveAndShoot();
+      }
+
+
     });
 
 
     document.addEventListener("keyup", e => {
 
       if(e.keyCode == this.keys.UP){
-        // if( )
+
         if( this.pressedKeys.includes("UP") ){
           this.removeElementFromArray("UP", this.pressedKeys)
       }
     }
     
       if(e.keyCode == this.keys.DOWN){
-        // if( )
+     
         if( this.pressedKeys.includes("DOWN") ){
           this.removeElementFromArray("DOWN", this.pressedKeys)
+      }
+    }
+    
+      if(e.keyCode == this.keys.RIGHT){
+      
+        if( this.pressedKeys.includes("RIGHT") ){
+          this.removeElementFromArray("RIGHT", this.pressedKeys)
+      }
+    }
+    
+      if(e.keyCode == this.keys.LEFT){
+       
+        if( this.pressedKeys.includes("LEFT") ){
+          this.removeElementFromArray("LEFT", this.pressedKeys)
+      }
+    }
+    
+      if(e.keyCode == this.keys.SPACE){
+        // if( )
+        if( this.pressedKeys.includes("SPACE") ){
+          this.removeElementFromArray("SPACE", this.pressedKeys)
       }
     }
 
