@@ -223,28 +223,51 @@ const Game = {
   },
 
 
+    setBorders(object){
+      let upperLimit, lowerLimit, leftLimit, rightLimit;
 
-  // isImpact(o1, o2){
-  //   if( ( (o1.pos.x + o1.size.w) < o2.pos.x ) || ( (o2.pos.x + o2.size.w) < o1.pos.x ) || ( (o1.pos.y + o1.size.h) < o2.pos.y ) || ( (o2.pos.y + o2.size.h) <  o1.pos.y ) ){
-  //     return false
-  //   }else{
-  //     return true
-  //   }
-  // }
+      if( object instanceof Shots){
+        upperLimit = object.pos.y - object.radius
+        lowerLimit = object.pos.y + object.radius
+        leftLimit = object.pos.x - object.radius
+        rightLimit = object.pos.x + + object.radius
+      }else{
+        upperLimit = object.pos.y 
+        lowerLimit = object.pos.y + object.size.h
+        leftLimit = object.pos.x
+        rightLimit = object.pos.x + object.size.w 
+      }
+      // return upperLimit
+      return [upperLimit, lowerLimit, leftLimit, rightLimit]
+    },
 
-     
-  isImpact(object1, object2){
-    return (
+    
 
-      (object1.pos.x ) >= object2.pos.x && 
-      ( 
-        // (object1.posY > object2.pos.y && object1.posY < (object2.pos.y + 50))
-        (object1.pos.y > object2.pos.y && object1.pos.y < (object2.pos.y + object2.size.h) ) ||
-        (object1.pos.y + object1.size.h > object2.pos.y && (object1.pos.y + object1.size.h) < (object2.pos.y + object2.size.h) ) 
-        || ( (object1.pos.y < object2.pos.y && (object1.pos.y + object1.size.h) > object2.pos.y) ) 
-        || ( ( object1.pos.y > object2.pos.y ) && ( object1.pos.y + object1.size.h < object2.pos.y + object2.size.h ) )       
-      )
-      )
+
+  isImpact(o1, o2){
+    let [upper1, lower1, left1, right1] = this.setBorders(o1)
+    let [upper2, lower2, left2, right2] = this.setBorders(o2)
+
+    if( ( right1 < left2 ) || ( right2 < left1 ) || ( lower1 < upper2 ) || ( lower2 <  upper1 ) ){
+      return false
+    }else{
+      return true
+    }
   }
+
+  // MIGHT COME IN HANDY   
+  // isImpact(object1, object2){
+  //   return (
+
+  //     (object1.pos.x ) >= object2.pos.x && 
+  //     ( 
+  //       // (object1.posY > object2.pos.y && object1.posY < (object2.pos.y + 50))
+  //       (object1.pos.y > object2.pos.y && object1.pos.y < (object2.pos.y + object2.size.h) ) ||
+  //       (object1.pos.y + object1.size.h > object2.pos.y && (object1.pos.y + object1.size.h) < (object2.pos.y + object2.size.h) ) 
+  //       || ( (object1.pos.y < object2.pos.y && (object1.pos.y + object1.size.h) > object2.pos.y) ) 
+  //       || ( ( object1.pos.y > object2.pos.y ) && ( object1.pos.y + object1.size.h < object2.pos.y + object2.size.h ) )       
+  //     )
+  //     )
+  // }
 
 }
