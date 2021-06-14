@@ -24,7 +24,7 @@ class Background {
     move() {
       if (this.posX <= -this.width) {
         this.posX = 0;
-        this.screens ++
+        this.passedScreens ++
       }
       this.posX -= this.velX;
     }

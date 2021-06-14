@@ -74,10 +74,10 @@ const Game = {
     },
 
     hasGravity(){
-      if( this.background.passedScreens == 0){
-        this.gravity = 1
+      if( this.background.passedScreens % 2 == 0){
+        this.gravity = 0    
       }else{
-        this.gravity = 0
+        this.gravity = 1
       }
       this.player.gravity = this.gravity
     },
@@ -222,7 +222,7 @@ const Game = {
       this.enemies =[]
   },
 
-
+// para uniformizar las medidas utilizadas en las condiciones de choque
     setBorders(object){
       let upperLimit, lowerLimit, leftLimit, rightLimit;
 

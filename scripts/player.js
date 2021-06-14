@@ -32,7 +32,7 @@ class Player {
       if(this.pos.x > 0){
         this.pos.x -= 1
       }
-      if( this.gravity == 1){
+      if( (this.pos.y + this.size.h) < this.gameH && this.gravity == 1){
         this.pos.y += 1
       }
     }
