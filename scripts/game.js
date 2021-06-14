@@ -136,7 +136,7 @@ const Game = {
         if( isImpact ){
           this.lives += 3
           this.lives = this.lives > this.maxLivesNumber ? this.maxLivesNumber : this.lives 
-          console.log(this.lives)
+          // console.log(this.lives)
           this.livesBarrell = ''
         } 
     }
