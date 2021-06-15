@@ -12,6 +12,7 @@ const Game = {
     ctx: undefined,
     width: undefined,
     height: undefined,
+    topScores: [{name: 'A', score: 3}, {name: 'B', score: 10}, {name: 'C', score: 1}],
     FPS: 10,
     framesCounter: 0,
 
@@ -285,7 +286,9 @@ const Game = {
   isGameOver(message){
     console.log('Game Over! :)')
     // this.background.draw()
+    saveData()
     clearInterval(this.interval)
+    displayNewResults()
     this.background.draw()
     this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
     this.ctx.fillStyle = "orange"
@@ -362,7 +365,7 @@ const Game = {
   }, 
 
   increaseLevel(){
-    console.log("kjsdnlkal")
+    // console.log("kjsdnlkal")
     this.level++
   }
 
