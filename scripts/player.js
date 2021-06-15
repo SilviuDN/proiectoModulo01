@@ -9,6 +9,7 @@ class Player extends SuperClass{
       this.repeatedShots = 15,
       this.shots = [],
       this.pressedKeys = [],
+      // this.weapon = ''//BASS, ACUSTICA, LA_OTRA
         
       this.init()     
       this.setListeners()

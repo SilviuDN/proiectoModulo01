@@ -12,7 +12,7 @@ const Game = {
     FPS: 10,
     framesCounter: 0,
     score : 0,
-    lives : 3,
+    lives : 5,
     gravity : 0,
 
   
@@ -24,6 +24,7 @@ const Game = {
 
     //difficulty
     maxLivesNumber: 5,
+    tempContor: 0,
   
     keys: {
       UP: 38,
@@ -48,10 +49,10 @@ const Game = {
     },
   
     setDimensions() {
-      // this.width = window.innerWidth
-      // this.height = window.innerHeight
-      this.width = 4000
-      this.height = 2000
+      this.width = 0.7*window.innerWidth
+      this.height = 0.7*window.innerHeight
+      // this.width = 4000
+      // this.height = 2000
       this.canvas.width = this.width
       this.canvas.height = this.height
     },
@@ -66,11 +67,13 @@ const Game = {
           this.createAsteroids()
           this.explodeAsteroid()
           this.createEnemies()
+          this.enemyFires()
           this.explodeEnemy()
           this.createLivesBarrell()
           this.useLivesBarrell()
           this.isShipImpact()
           this.isShipImpactConEnemyShip()
+          this.isShipImpactWithEnemyShot()
           if(this.lives > 0){
             this.drawAll()
           }            
@@ -103,6 +106,16 @@ const Game = {
 
     },
 
+    enemyFires(){  
+      // if( this.framesCounter % 200 == 0 && (this.enemies.length > 0) ){
+      if(  (this.enemies.length > 0) ){
+        // condition that asteroids don't enter in out of range area
+        // console.log(this.enemies)
+        this.enemies.forEach(enemy => enemy.enemyFires())
+      }
+
+    },
+
     createLivesBarrell(){  
       if( this.framesCounter % 4000 == 0){
         // condition that asteroids don't enter in out of range area
@@ -130,12 +143,16 @@ const Game = {
     },
 
 
+
     clear() {
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.asteroids = this.asteroids.filter( asteroid => asteroid.pos.x > -5)
         this.enemies = this.enemies.filter( enemy => enemy.pos.x > -5)
         
         this.player.shots = this.player.shots.filter(shot =>  shot.pos.x < this.width ) 
+        this.enemies.forEach( enemy => enemy.shots = enemy.shots.filter(shot => shot.pos.x > -5))
+        
+        
 
       },
     
@@ -209,6 +226,24 @@ const Game = {
     })
   },
 
+  isShipImpactWithEnemyShot(){
+
+    this.enemies.forEach(enemy => {
+      enemy.shots.forEach(shot => {
+        const isImpact = this.isImpact(this.player, shot)
+        if(isImpact){
+          this.removeElementFromArray(shot, enemy.shots)
+          this.lives--
+          console.log('Atins', this.tempContor++, this.lives)
+          if(this.lives <= 0){
+            this.isGameOver('You loose')
+          }        
+        }
+      })
+    })
+
+  },
+
   isWin(){
     if(this.background.passedScreens >= 2){
       console.log("DOES NOT WORK!!!!!")
@@ -230,8 +265,7 @@ const Game = {
       }      
       return isImpact
     })
-  },
-   
+  },   
 
   isGameOver(message){
     console.log('Game Over! :)')
@@ -279,7 +313,7 @@ const Game = {
     setBorders(object){
       let upperLimit, lowerLimit, leftLimit, rightLimit;
 
-      if( object instanceof Shots){
+      if( object instanceof Shots || object instanceof EnemyShots){
         upperLimit = object.pos.y - object.radius
         lowerLimit = object.pos.y + object.radius
         leftLimit = object.pos.x - object.radius
