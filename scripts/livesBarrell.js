@@ -14,7 +14,7 @@ class LivesBarrell {
       
     init(){
         this.imageInstance = new Image()
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = `./img/extraLife.png` 
     }
 
     draw() {

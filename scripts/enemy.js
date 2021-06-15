@@ -8,9 +8,10 @@ class Enemy {
       this.gameH = gameH,
       // this.pos = { x: gameW/2, y: enemyPosY},
       this.pos = { x: gameW, y: enemyPosY },
-      this.size = { w: 200, h: 200 },
+      this.size = { w: 250, h: 200 },
       this.enemyImage = enemyImg,
       this.speed = { x: speed, y: 0 }
+      this.repeatedShots =12,
     this.shots = [],
 
       this.init()
@@ -18,18 +19,15 @@ class Enemy {
 
   init() {
     this.imageInstance = new Image()
-    //   this.imageInstance.src = `./img/${this.enemyImage}` 
-    this.imageInstance.src = `./img/enemy.png`
+
+    this.imageInstance.src = "img/image 19-1.png"
   }
-
-
 
   draw() {
     this.move()
     this.ctx.drawImage(this.imageInstance, this.pos.x, this.pos.y, this.size.w, this.size.h)
-
-    // this.shots.forEach(shot => shot.draw())
-    // this.clearShots()
+    this.shots.forEach(shot => shot.draw())
+    this.clearShots()
   }
 
   move() {
@@ -42,7 +40,7 @@ class Enemy {
     const enemyCenter = (this.pos.y + this.size.h / 2)
     // const playerCenter = (this.player.pos.y + this.player.pos.h/2)
     // const centerToCenterGap = enemyCenter - playerCenter
-    if (Math.random() < 0.03) {
+    if (this.frameCounter % 9000 && Math.random() < 0.03) {
       if (enemyCenter < this.player.pos.y) {
         this.speed.y = 10
       } else if (enemyCenter > (this.player.pos.y + this.player.size.h)) {
@@ -51,16 +49,18 @@ class Enemy {
     }
 
   }
+  shot() {
+    const shot = new ShotsEnemy(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
+    if (this.shots.length < this.repeatedShots) {
+      this.shots.push(shot)
+    }
 
+  }
 
-  //   shot(){
-  //     const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
-  //     this.shots.push( shot )
-  //   }
-
-
-
-
-
+  clearShots() {
+    // this.shots = this.shots.filter(shot => {
+    //   return ( shot.pos.x < this.gameW )
+    // }) 
+  }
 
 }

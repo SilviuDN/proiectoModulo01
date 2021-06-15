@@ -15,7 +15,7 @@ class Asteroid {
     init(){
         this.imageInstance = new Image()
         // this.imageInstance.src = `./img/${this.asteroidImage}` 
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = "img/image 21.png"
     }
 
     draw() {

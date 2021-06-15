@@ -11,13 +11,14 @@ class Background {
       this.posX = 0;
       this.posY = 0;
   
-      this.velX = 1;
+      this.velX = 3;
       this.passedScreens = 0;
     }
   
     draw() {
       this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height);
       this.ctx.drawImage(this.image, this.posX + this.width, this.posY, this.width, this.height);
+      this.ctx.drawImage(this.image, this.posX + 2*this.width, this.posY, this.width, this.height);
       this.move()
     }
   

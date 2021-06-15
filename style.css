@@ -1,16 +1,103 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-*{
-    box-sizing: border-box;
-}
 
 body{
     font-family: 'Roboto', sans-serif;
-    display: flex;
+   height: 100vh;
+}
+
+.container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}
+
+/*
+display: block;
+margin: 0 auto;
+
+----
+text-align: center;
+----
+display: flex;
+justify-content: center;
+*/
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.right {
+    text-align: right;
+}
+.widthCanvas{
+    width: 80%;
+    margin: 0 auto;
+}
+.name{
+    text-align: center;
+    padding-top: 20px;
+}
+.pause{
+    /* bootstrap? */
+}
+.exit{
+/* bootstrap? */
+}
+.score{
+    text-align: right;
+}
+
+.lives{
+
+}
+.guitars{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}  
+.guitar{
+    width: 180px;    
+}  
+img{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+.card{
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
+    align-items: center; */
+}
+h1{
+   text-align: center; 
+   padding-top: 50px;
+}
+.inicio{     
+    text-align: center;   
+    padding: 20px 50px;
+    margin-bottom: 50px;
+}
+.boton {
+    text-align:center;
+    margin-top: 50px;
+}
+.tabla{
+    width: 800px;
+    text-align:center;
+    display: block;
+    margin: 0 auto;
+}
+button {
+    width:150px;
+}
+.publico {
+    display: block;
+    margin: 0 auto;
+}
+.clasification{
+    text-align: center;   
+    padding: 20px 50px;
 }

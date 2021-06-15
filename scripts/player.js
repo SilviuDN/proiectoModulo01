@@ -72,10 +72,8 @@ class Player {
     shot(){
       const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
       if(this.shots.length < this.repeatedShots){
-        // this.shots.shift()
-        this.shots.push( shot )
+        this.shots.push(shot)
       }
-      // this.shots.push( shot )
     }
 
     
