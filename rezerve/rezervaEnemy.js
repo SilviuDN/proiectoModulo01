@@ -7,7 +7,6 @@ class Enemy extends SuperClass{
         this.frameCounter = frameCounter,
         this.player = player,
         this.shots = [],
-        this.repeatedShots = 1,
           
         this.init()     
       }
@@ -18,30 +17,12 @@ class Enemy extends SuperClass{
           this.imageInstance.src = `./img/enemy.png` 
       }
     
-      
-    enemyFires(){
-      const shot = new EnemyShots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
-      const shootProbability = Math.random()
-
-      if( shootProbability < 0.03){
-        if(this.shots.length < this.repeatedShots){
-          // this.shots.shift()
-          this.shots.push( shot )
-        }
-      }
-
-
-
-    }
 
 
       draw(){      
         this.move()
-        this.ctx.drawImage(this.imageInstance, this.pos.x, this.pos.y, this.size.w, this.size.h) 
-        this.shots.forEach(shot => shot.draw()) 
+        this.ctx.drawImage(this.imageInstance, this.pos.x, this.pos.y, this.size.w, this.size.h)  
 
-        
-        
         // this.shots.forEach(shot => shot.draw())
         // this.clearShots()
       }

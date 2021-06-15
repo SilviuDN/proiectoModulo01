@@ -1,18 +1,23 @@
 const Game = {
     title: 'Space Adventure',
-    projectManager: 'Paula, Theo, German',
+    projectManager: 'Theo',
+    honorificProjectManager: 'Paula',
+    parallaxMaster: 'German',
     authors: 'Kike, Silviu',
     license: undefined,
     version: '1.0.0',
-    desciption: 'Shooter App with gravity and everything',
+    description: 'Shooter App with gravity and everything',
+
     canvas: undefined,
     ctx: undefined,
     width: undefined,
     height: undefined,
     FPS: 10,
     framesCounter: 0,
+
     score : 0,
     lives : 5,
+    hasBomb: true,
     gravity : 0,
 
   
@@ -20,11 +25,14 @@ const Game = {
     player: undefined,
     asteroids: [],
     enemies: [],
+    // enemyShots: [],
     livesBarrell: undefined,
 
     //difficulty
+    level: 1,
     maxLivesNumber: 5,
     tempContor: 0,
+
   
     keys: {
       UP: 38,
@@ -33,7 +41,7 @@ const Game = {
       RIGHT: 39,
       SPACE: 32,
       PAUSE: 80, //P
-      BOMBA: 66 //B        
+      BOMB: 66 //B        
     },
   
     init() {
@@ -61,7 +69,8 @@ const Game = {
 
         this.reset()
     
-        this.interval = setInterval(() => {        
+        this.interval = setInterval(() => {   
+          refreshData()     
           this.clear()  
           this.hasGravity()  
           this.createAsteroids()
@@ -197,6 +206,8 @@ const Game = {
         const isImpact = this.isImpact(shot, enemy)  
         if( isImpact ){
           this.score += 2
+          //copiaza gloantele in nava ascunsa
+          this.enemies[0].shots =[...enemy.shots]
           this.removeElementFromArray(shot, this.player.shots)
         }                   
         return isImpact              
@@ -257,6 +268,10 @@ const Game = {
     const isShipImpact = this.enemies.some( enemy => {
       const isImpact = this.isImpact(this.player, enemy)
       if(isImpact){
+
+        //*************************************************************************************************** */
+        
+        this.enemies[0].shots =[...enemy.shots]
         this.removeElementFromArray(enemy, this.enemies)
         this.lives -= 2 //cambiar vidas mas adelante
         if(this.lives <= 0){
@@ -305,15 +320,19 @@ const Game = {
       this.background = new Background(this.ctx, this.width, this.height, "./img/background.png")
       this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", 25, 0, this.gravity, this.keys)
 
+      const stealthEnemy = new StealthEnemy(this.ctx, this.width, this.height, this.width, this.height/2, 200, 200, 'ship.jpg', -5, 0, this.frameCounter, this.player)
+
       this.obstacles = []
       this.enemies =[]
+      this.enemies.push(stealthEnemy)
   },
 
 // para uniformizar las medidas utilizadas en las condiciones de choque
     setBorders(object){
       let upperLimit, lowerLimit, leftLimit, rightLimit;
 
-      if( object instanceof Shots || object instanceof EnemyShots){
+      // if( object instanceof Shots || object instanceof EnemyShots){
+      if( object instanceof SuperShots){
         upperLimit = object.pos.y - object.radius
         lowerLimit = object.pos.y + object.radius
         leftLimit = object.pos.x - object.radius
@@ -340,6 +359,11 @@ const Game = {
     }else{
       return true
     }
+  }, 
+
+  increaseLevel(){
+    console.log("kjsdnlkal")
+    this.level++
   }
 
 

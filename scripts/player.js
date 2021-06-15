@@ -10,6 +10,8 @@ class Player extends SuperClass{
       this.shots = [],
       this.pressedKeys = [],
       // this.weapon = ''//BASS, ACUSTICA, LA_OTRA
+
+      this.hasBomb = true,
         
       this.init()     
       this.setListeners()
@@ -42,7 +44,18 @@ class Player extends SuperClass{
 
       const shot = this.pressedKeys.includes("SPACE")
       if(shot){
-        const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h)
+        const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h, 5, 35, 0)
+
+        if(this.shots.length < this.repeatedShots){
+          // this.shots.shift()
+          this.shots.push( shot )
+        }
+      }
+
+      const bomb = this.pressedKeys.includes("BOMB")
+      if(bomb && this.hasBomb == true){
+        // for(bbbbb)
+        const shot = new Shots(this.ctx, this.pos.x, this.pos.y, this.size.w, this.size.h, 5, 35, 0)
 
         if(this.shots.length < this.repeatedShots){
           // this.shots.shift()
@@ -139,6 +152,13 @@ class Player extends SuperClass{
         this.moveAndShoot();
       }
 
+      if(e.keyCode == this.keys.BOMB){
+        if( !this.pressedKeys.includes("BOMB") && this.hasBomb == true){
+          this.pressedKeys.push('BOMB')
+        }
+        this.moveAndShoot();
+      }
+
 
     });
 
@@ -177,6 +197,13 @@ class Player extends SuperClass{
         // if( )
         if( this.pressedKeys.includes("SPACE") ){
           this.removeElementFromArray("SPACE", this.pressedKeys)
+      }
+    }
+    
+      if(e.keyCode == this.keys.BOMB){
+        // if( )
+        if( this.pressedKeys.includes("BOMB") ){
+          this.removeElementFromArray("BOMB", this.pressedKeys)
       }
     }
 

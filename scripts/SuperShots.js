@@ -1,21 +1,19 @@
 class SuperShots {
 
-    constructor(ctx, playerPosX, playerPosY, playerWidth, playerHeight) {
+    constructor(ctx, playerPosX, playerPosY, playerWidth, playerHeight, radius = 5, speedX, speedY = 0) {
       this.ctx = ctx;
 
-      this.pos = { x: playerPosX + playerWidth, y: playerPosY + playerHeight / 2},
-      this.size = { w: 2* this.radius, h: 2* this.radius},
-      this.playerHeight = playerHeight;
+      this.pos = { x: playerPosX + playerWidth, y: playerPosY + playerHeight / 2};
+      this.size = { w: 2* this.radius, h: 2* this.radius};
   
-      this.radius = 5;
+      this.radius = radius;
   
-      this.velX = 25 + 10;
+      this.speed = { x: speedX, y: speedY} //35
     }
   
     draw() {
       this.ctx.beginPath();
       this.ctx.fillStyle = "white";
-      // this.ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
       this.ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
 
       this.ctx.fill();
@@ -24,7 +22,7 @@ class SuperShots {
     }
   
     move() {
-      this.pos.x += this.velX;
+      this.pos.x += this.speed.x;
 
     }
   }

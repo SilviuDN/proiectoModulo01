@@ -25,8 +25,12 @@ class Background {
       if (this.posX <= -this.width) {
         this.posX = 0;
         this.passedScreens ++
+        if( this.passedScreens % 2 == 0){
+          Game.increaseLevel();
+        }
       }
       this.posX -= this.velX;
     }
+
   }
   
