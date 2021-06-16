@@ -20,6 +20,7 @@ const Game = {
     lives : 5,
     hasBomb: true,
     gravity : 0,
+    asteroidsFreq: 200,
 
   
     background: undefined,
@@ -31,7 +32,7 @@ const Game = {
 
     //difficulty
     level: 1,
-    maxLivesNumber: 5,
+    maxLivesNumber: 50,
     tempContor: 0,
 
   
@@ -70,6 +71,7 @@ const Game = {
 
         this.reset()
     
+
         this.interval = setInterval(() => {   
           refreshData()     
           this.clear()  
@@ -104,7 +106,7 @@ const Game = {
     },
 
     createAsteroids(){  
-      if( this.framesCounter % 200 == 0){
+      if( this.framesCounter % this.asteroidsFreq == 0){
         // condition that asteroids don't enter in out of range area
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
 
@@ -131,7 +133,7 @@ const Game = {
         // condition that asteroids don't enter in out of range area
         const posStartY = this.player.size.h / 2 + Math.random() * (this.height - this.player.size.h)
 
-        this.livesBarrell = new LivesBarrell(this.ctx, this.width, this.height, this.width, posStartY, 100, 100, 'asteroid', 10, 0)
+        this.livesBarrell = new LivesBarrell(this.ctx, this.width, this.height, this.width, posStartY, 50, 50, 'asteroid', 3, 0)
 
         
       }
@@ -145,7 +147,7 @@ const Game = {
         
           
     // constructor(ctx, frameCounter, player, gameW, gameH,  enemyPosY, enemyImg, speed = -5){
-      const enemy = new Enemy(this.ctx, this.width, this.height, this.width, posStartY, 200, 200, 'ship.jpg', -5, 0, this.frameCounter, this.player)
+      const enemy = new Enemy(this.ctx, this.width, this.height, this.width, posStartY, 100, 100, 'ship.jpg', -3, 0, this.frameCounter, this.player)
       this.enemies.push(enemy) 
         // console.log(enemy.pos.x)
         // console.log(this.enemies.length)
@@ -260,7 +262,7 @@ const Game = {
     if(this.background.passedScreens >= 2){
       console.log("DOES NOT WORK!!!!!")
       // this.player.pressedKeys = []
-      this.isGameOver('You win')
+      // this.isGameOver('You win')
     }
   },
 
@@ -290,10 +292,14 @@ const Game = {
     clearInterval(this.interval)
     displayNewResults()
     this.background.draw()
-    this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
-    this.ctx.fillStyle = "orange"
-    this.ctx.font = "150px Arial"
-    this.ctx.fillText(`${message}! You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
+
+
+    // this.myFillRect(this.width/4, this.height/4, this.width/2, this.height/2,'green')
+    // this.ctx.fillStyle = "orange"
+    // this.ctx.font = "150px Arial"
+    // this.ctx.fillText(`${message}! You won ${this.score} points!`, this.width/4, this.height/2, this.width/2)
+    
+    // this.ctx.fillText( getStupidScoreText(), this.width/4, this.height/2, this.width/2)
     
     console.log('Game Over! :)')
   },
@@ -320,10 +326,10 @@ const Game = {
   },
       
   reset() {
-      this.background = new Background(this.ctx, this.width, this.height, "./img/background.png")
-      this.player = new Player(this.ctx, this.width, this.height, 50, 300, 150, 150, "ship.jpg", 25, 0, this.gravity, this.keys)
+      this.background = new Background(this.ctx, this.width, this.height, "./img/background.jpg")
+      this.player = new Player(this.ctx, this.width, this.height, 50, 300, 80, 80, "ship03.png", 15, 15, this.gravity, this.keys)
 
-      const stealthEnemy = new StealthEnemy(this.ctx, this.width, this.height, this.width, this.height/2, 200, 200, 'ship.jpg', -5, 0, this.frameCounter, this.player)
+      const stealthEnemy = new StealthEnemy(this.ctx, this.width, this.height, this.width, this.height/2, 200, 200, 'ship.png', -5, 0, this.frameCounter, this.player)
 
       this.obstacles = []
       this.enemies =[]

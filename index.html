@@ -1,130 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>Progress Steps</title>
 </head>
+
 <body>
-
-  <div class="widthCanvas">  
-    
-    <header>
-      <div class="container">
-        <p class="name">Name</p>
-        <button class="pause" id="start-button">Pause</button>
-        <a href="#" class="exit">Exit</a>
-      </div>
-
-    </header>
-
-    <section>
-      <div class="container2">
-        <h2 class="score right">Score:</h2>
-        <canvas class="center" id="mySpaceCanvas" width="300" height="300"></canvas>
-        <h2 class="lives">lives</h2>
-      </div>
-    </section>
-
-    <!-- <div class="aaa"> -->
-      <div class="topScoresEntries">
-        <div class="entry">
-          <p class="entry-number">1</p>
-          <p class="entry-name">Ion</p>
-          <p class="entry-score">12</p>
-        </div>
-        <div class="entry">
-          <p class="entry-number">2</p>
-          <p class="entry-name">Ion</p>
-          <p class="entry-score">10</p>
-        </div>
-        <div class="entry">
-          <p class="entry-number">3</p>
-          <p class="entry-name">Ion</p>
-          <p class="entry-score">1</p>
-        </div>
-      </div>
-    <!-- </div> -->
-
-
-
-  </div>
-
-
-
-
-
-    <!-- <div class="container">
-      <ul>
-        <li><p class="name">Name</p></li>
-        <li><button class="pause">Pause</button></li>
-        <li><a href="#" class="exit">Exit</a></li>
-      </ul>
-    </div>  -->
-
-      <!-- <ul>
-        <li><p class="score">Score:</p></li>
-        <li><canvas id="mySpaceCanvas" width="300" height="300"></canvas></li>
-        <li><p class="lives center">lives</p></li>
-      </ul> -->
-
-
-
-    <!-- <div class="container">
-      <p class="score">Score:</p>
-      <canvas id="mySpaceCanvas"></canvas>
-      <p class="lives">lives
-    </div> -->
-
-
-    
-    
-
-
-
-
-
 
     <style>
         body {
-          margin: 0;
-          padding: 0;
+            margin: 0;
+            padding: 0;
         }
-      </style>
+    </style>
 
+    <div class="widthCanvas">
+        <header>
+            <h1>Guitar´s Battle</h1>
+            <!-- <h2 class="name">Name</h2> -->
+            <label for="player">Name:</label>
+            <input type="text" id="player">
+        </header>
+        <section>
+            <div>
+                <h2>Select Guitar</h2>
+                <div class="guitars">
+                    <img class ='guitar' src="./img/image 11.png" alt="">
+                    <img class='guitar' src="./img/image 13.png" alt="">
+                    <img class= 'guitar' src="./img/image 12.png" alt="">
+                </div>
+            </div>
+            <div class="boton">
+                <button type="button" class="btn btn-primary">Start</button>
+            </div>
+        </section>
 
+    </div>
 
-      
+    <script src="./scripts/SuperClass.js"></script>
+    <script src="./scripts/player.js"></script>
+    <script src="./scripts/enemy.js"></script>
+    <script src="./scripts/StealthEnemy.js"></script>
+    <script src="./scripts/superShots.js"></script>
 
-      
-      <script src="./scripts/SuperClass.js"></script>
-      <script src="./scripts/player.js"></script>
-      <script src="./scripts/enemy.js"></script>
-      <script src="./scripts/StealthEnemy.js"></script>
-      <!-- <script src="./scripts/enemy2.js"></script> -->
-      <script src="./scripts/superShots.js"></script>
+    <script src="./scripts/Enemyshots.js"></script>
+    <script src="./scripts/shots.js"></script>
+    <script src="./scripts/livesBarrell.js"></script>
+    <script src="./scripts/asteroids.js"></script>
+    <script src="./scripts/background.js"></script>
+    <script src="./scripts/game.js"></script>
+    <script src="./scripts/querySelectors.js"></script>
 
-      <script src="./scripts/Enemyshots.js"></script>
-      <script src="./scripts/shots.js"></script>
-      <script src="./scripts/livesBarrell.js"></script>
-      <script src="./scripts/asteroids.js"></script>
-      <script src="./scripts/background.js"></script>
-      <!-- <script src="./scripts/obstacle.js"></script> -->
-      
-      <!-- <script src="./scripts/obstacle.js"></script> -->
-      <!-- <script src="./scripts/crazyObstacle.js"></script> -->
-      <script src="./scripts/game.js"></script>
-      <script src="./scripts/querySelectors.js"></script>
+    <script src="./scripts/index.js"></script>
 
-      <script src="./scripts/index.js"></script>
-
-    
 
 
 
 
 </body>
+
 </html>

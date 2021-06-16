@@ -11,7 +11,8 @@ class Asteroid extends SuperClass{
     init(){
         this.imageInstance = new Image()
         // this.imageInstance.src = `./img/${this.asteroidImage}` 
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = `./img/asteroid.png` 
+        // this.imageInstance.src = `./img/asteroid.jpg` 
     }
 
     draw() {

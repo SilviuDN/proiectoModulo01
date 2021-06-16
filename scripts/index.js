@@ -1,16 +1,10 @@
 window.onload = () => Game.init()
 
 // window.onload = () => {
-//     document.getElementById('start-button').onclick = () => {
+//     document.getElementById('start-button').onclick = (e) => {
 //         Game.init()
+//         e.currentTarget.disabled = true
 //     //   startGame();
 //     };
   
-//     // function startGame() {
-//     //     console.log('click')
-//     //     carRaceApp.obstacles= [],
-//     //     carRaceApp.framesCounter= 0,
-//     //     carRaceApp.score= 0,
-//     //     carRaceApp.init()
-//     // }
 //   };

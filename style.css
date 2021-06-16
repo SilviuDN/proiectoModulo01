@@ -1,89 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
 body{
-    margin: 0;
-    padding: 0;
-    margin: 0;
-    /* background-color: aqua; */
+    font-family: 'Roboto', sans-serif;
+   height: 100vh;
 }
-
-
 
 .container{
-    display: flex;
-    justify-content: space-evenly;   
+    display:flex;
+    justify-content: space-between;
     align-items: center; 
-    width: 100%; 
+    width: 100%;
 }
 
-li{
-    list-style: none;
-    padding-left: 0.5em;
-}
+/*
+display: block;
+margin: 0 auto;
 
-.center{
+----
+text-align: center;
+----
+display: flex;
+justify-content: center;
+*/
+.centered {
     display: block;
     margin: 0 auto;
 }
 
-.right{
+.right {
     text-align: right;
 }
-
 .widthCanvas{
     width: 80%;
     margin: 0 auto;
 }
+.name{
+    text-align: center;
+    padding-top: 20px;
+}
+.pause{
+    /* bootstrap? */
+}
+.exit{
+/* bootstrap? */
+}
+.score{
+    text-align: right;
+}
 
-.container2{
-    display: flex;
+.lives{
+
+}
+.guitars{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}  
+.guitar{
+    width: 180px;    
+}  
+img{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+.card{
+    /* display: flex;
     flex-direction: column;
-    width: 80%;
+    align-items: center; */
+}
+h1{
+   text-align: center; 
+   padding-top: 50px;
+}
+.inicio{     
+    text-align: center;   
+    padding: 20px 50px;
+    margin-bottom: 50px;
+}
+.boton {
+    text-align:center;
+    margin-top: 50px;
+}
+.tabla{
+    width: 800px;
+    text-align:center;
+    display: block;
     margin: 0 auto;
 }
-
-header{
-    text-align: center;
+button {
+    width:150px;
 }
-
-.card{
-    display: flex;
-    flex-direction: column;    
-    align-items: center;
-}
-
-.guitars{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-}
-
-img{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    width: 30%;
-    /* max-width: 100%;   */
-    height: auto; 
-    transform: rotate(45deg);
-}
-
-.start{
-    margin: 10px auto;
+.publico {
     display: block;
-    background-color: green;
-    padding: 20px;
+    margin: 0 auto;
 }
-
-
-
-.topScoreEntries{
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    flex-flow: column wrap;
-}
-
-.entry{
-    display: flex;
-    justify-content: space-between;
-    width: 30%;
+.clasification{
+    text-align: center;   
+    padding: 20px 50px;
 }

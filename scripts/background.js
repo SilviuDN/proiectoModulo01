@@ -26,6 +26,8 @@ class Background {
         this.posX = 0;
         this.passedScreens ++
         if( this.passedScreens % 2 == 0){
+          // this.velX += 2 
+          // Game.asteroidsFreq -= 100
           Game.increaseLevel();
         }
       }

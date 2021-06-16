@@ -11,6 +11,8 @@ class Player extends SuperClass{
       this.pressedKeys = [],
       // this.weapon = ''//BASS, ACUSTICA, LA_OTRA
 
+      // this.speed ={x: 15, y: 15}
+
       this.hasBomb = true,
         
       this.init()     
@@ -66,7 +68,7 @@ class Player extends SuperClass{
       const up   = this.pressedKeys.includes("UP")
       if(up){
         if(this.pos.y > 0){
-          this.pos.y -= 25
+          this.pos.y -= this.speed.y
         }
       }
 
@@ -74,7 +76,7 @@ class Player extends SuperClass{
       if(down){
         
         if(this.pos.y < this.gameH - this.size.h){
-          this.pos.y += 25
+          this.pos.y += this.speed.y
         }
       }
 
@@ -82,7 +84,7 @@ class Player extends SuperClass{
       if(right){
         
         if(this.pos.x < this.gameW - this.size.w){
-          this.pos.x += 25
+          this.pos.x += this.speed.x
         }
       }
 
@@ -90,7 +92,7 @@ class Player extends SuperClass{
       if(left){
         
         if(this.pos.x > 0){
-          this.pos.x -= 25
+          this.pos.x -= this.speed.x
         }
       }
 

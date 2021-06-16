@@ -2,7 +2,8 @@ class LivesBarrell extends SuperClass{
 
     constructor(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY){
         super(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY)    
-
+    
+        
 
         this.init()
 
@@ -12,7 +13,7 @@ class LivesBarrell extends SuperClass{
       
     init(){
         this.imageInstance = new Image()
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = `./img/extraLife.png` 
     }
 
     draw() {

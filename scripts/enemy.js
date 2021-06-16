@@ -59,9 +59,9 @@ class Enemy extends SuperClass{
         if(  Math.random() < 0.03  ){
         // if( this.frameCounter % 9000 && Math.random() < 0.03){
           if( enemyCenter < this.player.pos.y){
-            this.speed.y = 10
+            this.speed.y = 5
           }else if( enemyCenter > (this.player.pos.y + this.player.size.h) ){
-            this.speed.y = -10
+            this.speed.y = -5
           }
         }
 
