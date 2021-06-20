@@ -1,16 +1,142 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-*{
-    box-sizing: border-box;
-}
 
 body{
+    margin-bottom: 0;
     font-family: 'Roboto', sans-serif;
+   height: 100vh;
+   background-image: url("./img/fondoinicio.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+}
+
+.container{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+
+.widthCanvas{
+    width: 80%;
+    margin: 0 auto;
+}
+.name{
+    text-align: center;
+    padding-top: 20px;
+}
+
+th,td{	
+    color: black;	
+    background-color: white;	
+}
+
+.score{
+    text-align: right;
+}
+
+
+
+.lives{
+    text-align: start;
+}
+.guitars{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}  
+.guitar{
+    width: 180px;    
+}  
+img{
+    display:flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+		
+h1,h2{	
+    text-align: center; 	
+    padding-top: 50px;	
+    color:yellow;	
+    font-family: fantasy;	
+    height: auto; 	         
+ }	
+
+ h2.lives, h2.level, h2.score{
+     padding: 0;
+ }
+
+
+
+ header{	
+     text-align: center;	
+ }
+
+.inicio{     
+    text-align: center;   
+    padding: 20px 50px;
+    margin-bottom: 50px;
+}
+.boton {
+    text-align:center;
+}
+
+#quiero50{
+    margin-top: 30px;
+}
+#start{
+    margin-top: 50px;
+}
+#startOver{
+    margin-top: 50px;
+}
+.tabla{
+    width: 800px;
+    text-align:center;
+    display: block;
+    margin: 0 auto;
+}
+button {
+    width:150px;
+}
+.publico {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
+    margin: 0 auto;
+    position: relative;
+}
+.clasification{
+    text-align: center;   
+    padding: 40px 50px;
+}
+
+.controls{
+
+    margin: 50px 300px;
+}
+
+
+.guitar:hover{
+    border:1px solid red;
+    border-radius: 5px
+    
+}
+img:active{
+    border:none;
+    background: #f1b1b1;
+    box-shadow: inset 0px 0px 10px #dd2b2b;
+}
+
+.activeGuitar{
+    border-radius:5px;
+    background: #f1b1b1;
+    box-shadow: inset 0px 0px 10px #dd2b2b;
 }

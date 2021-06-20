@@ -1,20 +1,15 @@
-class LivesBarrell {    
-    constructor(ctx, posX, posY, speedX, asteroidImage) {
-        this.ctx = ctx
-        this.pos = { x: posX, y: posY }
-        this.size = {w: 100, h: 100}
-        this.speed = { x: speedX, y: 0}
-        this.asteroidImage = asteroidImage
+class LivesBarrell extends SuperClass{    
 
+    constructor(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY){
+        super(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY)    
         this.init()
-
     }
 
 
       
     init(){
         this.imageInstance = new Image()
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = `./img/extraLife.png` 
     }
 
     draw() {

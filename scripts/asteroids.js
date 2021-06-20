@@ -1,21 +1,14 @@
-class Asteroid {    
-    constructor(ctx, posX, posY, speedX, asteroidImage) {
-        this.ctx = ctx
-        this.pos = { x: posX, y: posY }
-        this.size = {w: 50, h: 50}
-        this.speed = { x: speedX, y: 0}
-        this.asteroidImage = asteroidImage
+class Asteroid extends SuperClass{    
+    constructor(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY){
+        super(ctx, gameW, gameH, posX, posY, sizeW, sizeH, img, speedX, speedY)
 
         this.init()
 
     }
-
-
       
     init(){
         this.imageInstance = new Image()
-        // this.imageInstance.src = `./img/${this.asteroidImage}` 
-        this.imageInstance.src = `./img/asteroid.jpg` 
+        this.imageInstance.src = `./img/asteroid.png` 
     }
 
     draw() {
@@ -29,5 +22,6 @@ class Asteroid {
 
 }
 
-/// empezamos con Obstaculos(ctx, 1000, RANDOM, RANDOM, 0, FALSE, TRUE, ...)
-// Subclases para asteroido, nave, nuestroTiro... ???
+
+
+
